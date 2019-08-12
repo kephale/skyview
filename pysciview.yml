@@ -1,0 +1,16 @@
+name: pysciview
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - pyyaml
+  - numpy
+  - Pillow
+  - pyimagej
+  - opencv
+  - matplotlib
+  - openjdk
+#  - pip
+#  - pip:
+#    - tensorflow
+#    - keras
