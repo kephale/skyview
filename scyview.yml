@@ -9,7 +9,7 @@ dependencies:
   - pyimagej
   - opencv
   - matplotlib
-  - openjdk
+  - openjdk >=8.0.192,<8.1.0a0
 #  - pip
 #  - pip:
 #    - tensorflow

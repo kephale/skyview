@@ -1,8 +1,9 @@
 #
 
-1) run `setup.sh`  
-2) clone the sciview repository
-3) in the sciview repository (assumes scyview and sciview are in same parent directory):
+1) `conda env create -f scyview.yml`
+2) run `setup.sh`  
+3) clone the sciview repository
+4) in the sciview repository (assumes scyview and sciview are in same parent directory):
 ```
 git checkout janelia-minihackathon
 mvn package
