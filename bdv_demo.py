@@ -1,3 +1,4 @@
+# code from https://github.com/imglib/imglyb-learnathon/blob/master/notebooks/bdv/show-numpy-array-in-bdv.ipynb
 
 import h5py
 import os
