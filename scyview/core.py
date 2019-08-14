@@ -1,8 +1,8 @@
 import imagej
 
-global GLVector
+global GLVector, jFloat, jArray
 
-class PySciView(dict):
+class ScyView(dict):
     ij = None
 
     # Config could be read from file
@@ -20,8 +20,17 @@ class PySciView(dict):
     def create(self):
         self.ij = imagej.init(self['fiji_directory'],headless=False)
         import jnius
-        global GLVector
+        global GLVector, jArray, jFloat
+        jArray = jnius.autoclass("java.lang.reflect.Array")
+        jFloat = jnius.autoclass("java.lang.Float")
         GLVector = jnius.autoclass('cleargl.GLVector')
         self.ij.ui().showUI()
         return self.run().getOutput('sciView')
 
+    def glvector(self,x,y,z):
+        global jArray, jFloat
+        a = jArray.newInstance(jFloat, 3)
+        a[0] = jFloat(x)
+        a[1] = jFloat(y)
+        a[2] = jFloat(z)
+        return a

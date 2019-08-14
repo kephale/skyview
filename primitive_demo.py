@@ -1,20 +1,24 @@
-import pysciview.core as pysv
+import scyview.core as syvw
 import random
 import numpy as np
 
 # Configure pysciview
-psv = pysv.PySciView()
-psv.config()
+syvw_gen = syvw.ScyView()
+syvw_gen.config()
 
 # Make a SciView instance, this launches ImageJ and SciView
-sv = psv.create()
+syv = syvw_gen.create()
 
 # Make 10 spheres
 num_spheres = 10
 for k in range(num_spheres):
-    sphere = sv.addSphere()
+    sphere = syv.addSphere()
     x = float(random.uniform(-10,10))
     y = float(random.uniform(-10,10))
     z = float(random.uniform(-10,10))
-    a = np.array([x,y,z],dtype='float32')
-    #sphere.setPosition(pysv.GLVector(a))
+    syv.setPosition(sphere,x,y,z)
+    #sphere.setPosition(psv.glvector(x,y,z))
+
+import time
+
+time.sleep(5000)
