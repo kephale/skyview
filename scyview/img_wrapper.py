@@ -1,11 +1,8 @@
-import jnius_config
-jnius_config.add_options('-Xmx60g')
+from . import configure_jnius  # noqa
 import imglyb.accesses
-import imglyb.types
 import imglyb.types
 from jnius import JavaException, autoclass, PythonJavaClass, java_method
 
-import daisy
 import math
 import numpy as np
 
