@@ -17,18 +17,19 @@ PythonHelpers = autoclass('net.imglib2.python.Helpers')
 ds = daisy.prepare_ds(
     'test_array.zarr',
     'test',
-    total_roi=daisy.Roi((0, 0, 0), (2, 4, 8)),
+    total_roi=daisy.Roi((0, 0, 0), (20, 40, 80)),
     voxel_size=(1, 1, 1),
     write_size=(2, 4, 4),
     dtype=np.float32)
-ds.data[:,:,0:4] = 0.5
-ds.data[:,:,4:6] = 0.75
-ds.data[:,:,6:8] = 1.0
+ds.data[:,:,0:40] = 0.5
+ds.data[:,:,40:60] = 0.75
+ds.data[:,:,60:80] = 1.0
+ds.data[:,0:20,:] *= 0.5
 
 def cell_index_to_roi(total_roi, voxel_size, chunk_shape, cell_index):
 
     chunk_size = chunk_shape*voxel_size
-    chunks = (total_roi/chunk_size).get_shape()
+    chunks = (total_roi/chunk_size).get_shape()[::-1]
     cell_coordinates = []
     dims = len(chunks)
 
@@ -37,6 +38,8 @@ def cell_index_to_roi(total_roi, voxel_size, chunk_shape, cell_index):
         c = i % chunks[d]
         cell_coordinates.append(c)
         i = (i - c)//chunks[d]
+
+    cell_coordinates = cell_coordinates[::-1]
 
     roi = daisy.Roi(
         total_roi.get_begin() + daisy.Coordinate(cell_coordinates)*chunk_size,
@@ -56,7 +59,7 @@ def cell_index_to_ndarray(ds, cell_index):
 
     print("ROI for index %d: %s" % (cell_index, roi))
 
-    return np.ascontiguousarray(ds.to_ndarray(roi).transpose())
+    return np.ascontiguousarray(ds.to_ndarray(roi))
 
 class MakeAccessBiFunction(PythonJavaClass):
     __javainterfaces__ = ['java/util/function/BiFunction']
@@ -88,8 +91,8 @@ def make_access(ds, index, size):
 
 access_generator = MakeAccessBiFunction(lambda i, s: make_access(ds, i, s))
 img = PythonHelpers.imgWithCellLoaderFromFunc(
-    ds.shape,
-    ds.chunk_shape,
+    ds.shape[::-1],
+    ds.chunk_shape[::-1],
     access_generator,
     imglyb.types.FloatType(), # TODO: use ds.dtype
     imglyb.accesses.as_array_access(
