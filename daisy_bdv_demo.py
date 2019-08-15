@@ -102,7 +102,7 @@ def daisy_array_as_cached_cell_img(
 img    = daisy_array_as_cached_cell_img(ds, volatile_access=True, roi_size=chunks)
 rois   = get_rois(ds.shape, chunks)
 #slices = dask.array.core.slices_from_chunks(data.chunks)
-slices = [ roi.to_slices() for roi in rois ]
+#slices = [ roi.to_slices() for roi in rois ]
 
 # alternative way generate cell img:
 # def make_access(index):
@@ -142,10 +142,11 @@ class MakeAccessBiFunction(PythonJavaClass):
 
 def make_access(index, size):
     try:
-        chunk    = ds.data[slices[index]]
+        chunk    = ds[rois[index]].to_ndarray()
         refGuard = imglyb.util.ReferenceGuard(chunk)
         address  = chunk.ctypes.data
         target   = imglyb.accesses.as_array_access(chunk, volatile=True)
+        #print('make_access ' + str(chunk))
         return target
     except JavaException as e:
         print('exception    ', e)
@@ -163,7 +164,7 @@ img              = PythonHelpers.imgWithCellLoaderFromFunc(
     access_generator,
     imglyb.types.FloatType(),    
 #    imglyb.types.UnsignedByteType(),
-    imglyb.accesses.as_array_access(ds.data[slices[0]], volatile=True))
+    imglyb.accesses.as_array_access(ds[rois[0]].to_ndarray(), volatile=True))
 
 
 
