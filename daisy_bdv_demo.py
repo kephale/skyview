@@ -49,7 +49,7 @@ else:
         voxel_size=(1, 1, 1),
         write_size=(8, 8, 8),
         dtype=np.float32)
-    d = np.arange(100**3, dtype=np.float32)/(100**3)
+    d = np.arange(100**3, dtype=np.float32)/(100**3)*1000
     ds.data[:] = d.reshape(ds.data.shape)
 
 print(ds.shape)
