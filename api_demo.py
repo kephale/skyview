@@ -1,7 +1,7 @@
 import daisy
 import numpy as np
 import random
-import scyview as sv
+import skyview as sv
 import os
 
 # create a SciView viewer

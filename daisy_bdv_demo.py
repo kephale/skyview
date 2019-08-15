@@ -1,6 +1,6 @@
 import daisy
 import numpy as np
-import scyview as sv
+import skyview as sv
 import imglyb
 
 def create_test_array():

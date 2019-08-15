@@ -1,4 +1,4 @@
-name: scyview
+name: skyview
 channels:
   - conda-forge
   - defaults
