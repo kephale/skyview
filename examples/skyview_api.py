@@ -82,13 +82,13 @@ if __name__ == "__main__":
 
     # register basic callbacks
     annotation_layer.register_callback(
-        sv.events.ON_HOVER_ENTER,
+        sv.Events.ON_HOVER_ENTER,
         lambda l, a: app.handle_hover_enter(l, a))
     annotation_layer.register_callback(
-        sv.events.ON_HOVER_LEAVE,
+        sv.Events.ON_HOVER_LEAVE,
         lambda l, a: app.handle_hover_leave(l, a))
     annotation_layer.register_callback(
-        sv.events.ON_CLICK,
+        sv.Events.ON_CLICK,
         lambda l, a: app.handle_click(l, a))
 
     # set initital viewer position
