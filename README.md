@@ -1,8 +1,8 @@
-#
+# SkyView: Python interface to SciView
 
 1) `conda env create -f skyview.yml`
 2) run `setup.sh`  
-3) clone the sciview repository
+3) clone the sciview repository https://github.com/scenerygraphics/sciview
 4) in the sciview repository (assumes skyview and sciview are in same parent directory):
 ```
 git checkout janelia-minihackathon
