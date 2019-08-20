@@ -1,5 +1,6 @@
 from .annotation_layer import AnnotationLayer
 from .volume import Volume
+from .img_wrapper import ij
 
 class Viewer:
 
@@ -7,8 +8,14 @@ class Viewer:
 
         self.volumes = {}
         self.annotation_layers = {}
-        self.sciview = None  # TODO: create actual scivew instance
+        self.sciview = self._setup_()        
 
+    def _setup_(self):
+        # Launch SciView inside ImageJ
+        cmd = 'sc.iview.commands.LaunchViewer'
+        result = ij.command().run(cmd, True).get()
+        return result.getOutput('sciView')
+        
     def add_volume(
             self,
             name,

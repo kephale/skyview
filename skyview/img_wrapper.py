@@ -1,4 +1,10 @@
 from . import configure_jnius  # noqa
+# imagej importing is order-sensitive w.r.t. imglyb/jnius
+import imagej  # noqa
+__fiji_directory__ = './Fiji.app'  # noqa
+# Launch ImageJ's JVM and setup classpath
+ij = imagej.init(__fiji_directory__, headless=False)  # noqa
+
 import imglyb.accesses
 import imglyb.types
 from jnius import JavaException, autoclass, PythonJavaClass, java_method
