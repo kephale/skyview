@@ -14,7 +14,9 @@ class Viewer:
         # Launch SciView inside ImageJ
         cmd = 'sc.iview.commands.LaunchViewer'
         result = ij.command().run(cmd, True).get()
-        return result.getOutput('sciView')
+        sciview = result.getOutput('sciView')
+        sciview.getFloor().setVisible(False)
+        return sciview
         
     def add_volume(
             self,
@@ -41,9 +43,7 @@ class Viewer:
         return layer
 
     def set_position(self, position):
-        # TODO
-        pass
+        self.sciview.moveCamera(position)
 
     def show(self):
-        # TODO
-        pass
+        input('Press enter to terminate')
