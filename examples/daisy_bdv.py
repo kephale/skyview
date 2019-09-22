@@ -1,7 +1,12 @@
 import daisy
 import numpy as np
+import time
+start = time.time()
 import skyview as sv
+print("Imported skyview in %.3fs" % (time.time() - start))
+start = time.time()
 import imglyb
+print("Imported imglyb in %.3fs" % (time.time() - start))
 
 def create_test_array():
 
@@ -19,7 +24,10 @@ def create_test_array():
 
     return ds
 
+start = time.time()
 array = create_test_array()
+print("Created test array in %.3fs" % (time.time() - start))
+
 img = sv.daisy_array_to_img(array)
 src = imglyb.util.BdvFunctions.show(img, 'test out-of-core array')
 src.setDisplayRange(0, 1)
