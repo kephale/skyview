@@ -1,6 +1,7 @@
 from .annotation_layer import AnnotationLayer
-from .volume import Volume
 from .img_wrapper import ij
+from .volume import Volume
+import daisy
 
 class Viewer:
 
@@ -8,28 +9,31 @@ class Viewer:
 
         self.volumes = {}
         self.annotation_layers = {}
-        self.sciview = self._setup_()        
+        self.sciview = self.__create_sciview()
 
-    def _setup_(self):
-        # Launch SciView inside ImageJ
-        cmd = 'sc.iview.commands.LaunchViewer'
-        result = ij.command().run(cmd, True).get()
-        sciview = result.getOutput('sciView')
-        sciview.getFloor().setVisible(False)
-        return sciview
-        
     def add_volume(
             self,
             name,
-            data,
+            array,
             chunk_shape=None,
             voxel_size=None,
             offset=None):
 
-        volume = Volume(data, chunk_shape, voxel_size, offset)
+        if isinstance(array, daisy.Array):
+
+            if chunk_shape is None:
+                chunk_shape = data.chunk_shape
+            if voxel_size is None:
+                voxel_size = data.voxel_size
+            if offset is None:
+                offset = data.roi.get_begin()
+
+            array = array.data
+
+        volume = Volume(array, chunk_shape, voxel_size, offset)
         self.volumes[name] = volume
 
-        # TODO: add to sciview
+        self.sciview.addVolume(volume.to_img())
 
         return volume
 
@@ -46,4 +50,16 @@ class Viewer:
         self.sciview.moveCamera(position)
 
     def show(self):
-        input('Press enter to terminate')
+        input("Press ENTER to quit...")
+        self.close()
+
+    def close(self):
+        self.sciview.close()
+
+    def __create_sciview(self):
+        # Launch SciView inside ImageJ
+        cmd = 'sc.iview.commands.LaunchViewer'
+        result = ij.command().run(cmd, True).get()
+        sciview = result.getOutput('sciView')
+        sciview.getFloor().setVisible(False)
+        return sciview
