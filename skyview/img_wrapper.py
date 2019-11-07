@@ -9,6 +9,9 @@ import imglyb.accesses
 import imglyb.types
 from jnius import JavaException, autoclass, PythonJavaClass, java_method
 
+SceneryBase = autoclass('graphics.scenery.SceneryBase')
+SceneryBase.xinitThreads()
+
 import math
 import numpy as np
 
