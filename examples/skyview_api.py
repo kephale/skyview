@@ -49,19 +49,19 @@ if __name__ == "__main__":
     # add three 3D+t volumes with different resolutions and offsets
     app.viewer.add_volume(
         "ch1",
-        create_volume((10, 100, 100, 50), np.float32),
-        chunk_shape=(1, 10, 10, 10),
-        voxel_size=(1, 1, 1, 2))
-    app.viewer.add_volume(
-        "ch2",
-        create_volume((10, 10, 100, 100), np.float32),
-        chunk_shape=(1, 10, 10, 10),
-        voxel_size=(1, 10, 1, 1))
-    app.viewer.add_volume(
-        "ch3",
-        create_volume((10, 50, 100, 100), np.float32),
-        chunk_shape=(1, 10, 10, 10),
-        offset=(0, 50, 0, 0))
+        create_volume((10, 100, 100), np.float32),
+        chunk_shape=(1, 10, 10),
+        voxel_size=(1, 1, 1))
+    # app.viewer.add_volume(
+    #     "ch2",
+    #     create_volume((10, 10, 100, 100), np.float32),
+    #     chunk_shape=(1, 10, 10, 10),
+    #     voxel_size=(1, 10, 1, 1))
+    # app.viewer.add_volume(
+    #     "ch3",
+    #     create_volume((10, 50, 100, 100), np.float32),
+    #     chunk_shape=(1, 10, 10, 10),
+    #     offset=(0, 50, 0, 0))
 
     # create an annotation layer
     annotation_layer = app.viewer.add_annotation_layer("random spheres")
