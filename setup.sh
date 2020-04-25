@@ -30,8 +30,8 @@ else
   exit 1
 fi
 
-echo "--> Adding sciview update site"
-./Fiji.app/$BINARY --update add-update-site sciview https://sites.imagej.net/SciView/
+echo "--> Adding SciView-Unstable update site"
+./Fiji.app/$BINARY --update add-update-site SciView-Unstable https://sites.imagej.net/SciView-Unstable/
 echo "--> Updating Fiji"
 ./Fiji.app/$BINARY --update update
 echo "--> Done."

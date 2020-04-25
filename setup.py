@@ -13,6 +13,8 @@ setup(
         ],
         install_requires=[
             "numpy",
-            "pyimagej"
+            "pyimagej",
+            "daisy",
+            "zarr"
         ]
 )

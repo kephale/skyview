@@ -23,17 +23,18 @@ class ScyView(dict):
                 list(args.keys())[0],
                 str(args[list(args.keys())[0]])).get()
 
-    def create(self):
+    def create(self, show_imagej=True):
         self.ij = imagej.init(self['fiji_directory'], headless=False)
         import jnius
-        global GLVector, jArray, jFloat
+        global Vector3f, jArray, jFloat
         jArray = jnius.autoclass("java.lang.reflect.Array")
         jFloat = jnius.autoclass("java.lang.Float")
-        GLVector = jnius.autoclass('cleargl.GLVector')
-        self.ij.ui().showUI()
+        Vector3f = jnius.autoclass('org.joml.Vector3f')
+        if show_imagej:
+            self.ij.ui().showUI()
         return self.run().getOutput('sciView')
 
-    def glvector(self, x, y, z):
+    def vector3f(self, x, y, z):
         global jArray, jFloat
         a = jArray.newInstance(jFloat, 3)
         a[0] = jFloat(x)

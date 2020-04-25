@@ -10,4 +10,5 @@
 build
 dist
 Fiji.app
+test_array.zarr
 fiji-nojre.zip
