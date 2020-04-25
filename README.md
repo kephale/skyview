@@ -1,11 +1,16 @@
 # SkyView: Python interface to SciView
 
-1) `conda env create -f skyview.yml`
-2) run `setup.sh`  
-3) clone the sciview repository https://github.com/scenerygraphics/sciview
-4) in the sciview repository (assumes skyview and sciview are in same parent directory):
-```
-git checkout janelia-minihackathon
-mvn package
-cp target/sciview-0.2.0-beta-2-SNAPSHOT.jar ../skyview/Fiji.app/jars/
-```
+**Requirements:**
+
+- curl
+- conda
+
+## Installation
+
+1) Run `setup.sh`  
+
+## Usage
+
+1) Activate the conda environment: `conda activate skyview`  
+2) [Consider adding a sciview feature test suite]
+3) Launch SciView: `python examples/launch_sciview.py`

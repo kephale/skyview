@@ -1,4 +1,6 @@
-# first load Fiji conifg
+conda env create -f skyview.yml
+
+# first load Fiji config
 # If Fiji.app isnt there
 if ! unzip -tqq fiji-nojre.zip; then
   echo
